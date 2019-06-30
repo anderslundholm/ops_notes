@@ -1,0 +1,26 @@
+# Install Java
+sudo apt-get install openjdk-11-jdk
+
+# Set JAVA_HOME
+sudo update-alternatives --config java
+There is only one alternative in link group java (providing /usr/bin/java): /usr/lib/jvm/java-11-openjdk-amd64/bin/java
+
+sudo vim /etc/environment
+# Append to end:
+JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64/bin/java"
+
+# Install with apt
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-6.x.list
+sudo apt update
+sudo apt install elasticsearch, logstash, kibana, filebeat...
+
+
+# Install Elastic Stack Tutorial
+https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elastic-stack-on-ubuntu-18-04
+
+# Parsers
+https://www.elastic.co/guide/en/logstash/6.7/logstash-config-for-filebeat-modules.html
+
+
+

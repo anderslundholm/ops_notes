@@ -1,0 +1,57 @@
+# Install Java
+alz@mb01:~$ sudo apt-get update
+alz@mb01:~$ sudo apt install openjdk-8-jdk 
+
+# Set up kafka user
+sudo useradd kafka -m
+sudo passwd kafka
+sudo adduser kafka sudo
+su -l kafka
+
+# Download and install kafka/zookeeper
+mkdir ~/downloads
+### Latest version: https://kafka.apache.org/downloads
+curl "http://apache.mirrors.spacedump.net/kafka/2.2.0/kafka_2.12-2.2.0.tgz" -o ~/downloads/kafka.tgz
+mkdir ~/kafka && cd ~/kafka
+tar -xvzf ~/downloads/kafka.tgz --strip 1
+
+# Configure Kafka Server
+vim ~/kafka/config/server.properties
+### ~/kafka/config/server.properties
+delete.topic.enable = true
+
+# Create Systemd Unit Files (included)
+sudo vim /etc/systemd/system/zookeeper.service
+sudo vim /etc/systemd/system/kafka.service
+
+# Start, check and enable
+sudo systemctl start kafka
+sudo journalctl -u kafka
+sudo systemctl enable kafka
+
+# Zookeeper info
+echo dump | nc localhost 2181
+bin/zookeeper-shell.sh localhost:2181 <<< "get /brokers/ids/1"
+
+# Cluster settings
+sudo mkdir /var/lib/zookeeper
+sudo chown -R kafka:kafka /var/lib/zookeeper/
+touch /var/lib/zookeeper/myid
+### Set unique id
+echo "1" >> /var/lib/zookeeper/myid
+
+### iptables
+sudo iptables -A INPUT -p tcp --match multiport --dport 2888:3888 -j ACCEPT
+sudo iptables -A INPUT -p tcp -m tcp --dport 2181 -j ACCEPT
+
+
+
+
+
+# Tutorials
+### How To Install Apache Kafka on Ubuntu 18.04
+https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-18-04
+
+### Set up zookeeper/kafka cluster
+https://codeforgeek.com/how-to-setup-zookeeper-cluster-for-kafka/
+https://codeforgeek.com/how-to-setup-multi-node-multi-broker-kafka-cluster-in-aws/

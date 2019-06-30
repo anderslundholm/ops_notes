@@ -1,0 +1,26 @@
+# Guide: Iptables Essentials: Common Firewall Rules and Commands
+https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+
+# Install persistent iptables
+sudo apt-get install iptables-persistent
+
+# Save iptables to file
+iptables-save > /etc/iptables/rules.v4 
+
+# Apply iptables from file
+iptables-apply /etc/iptables/rules.v4
+
+# Allow loopback
+iptables -A INPUT -i lo -j ACCEPT
+iptables -A OUTPUT -o lo -j ACCEPT
+
+# Allow Established and Related Incoming Connections
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+
+# Allow incoming ssh from subnet
+iptables -A INPUT -p tcp -s 192.168.1.0/24 --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+# Default policy drop
+iptables -P INPUT DROP
+

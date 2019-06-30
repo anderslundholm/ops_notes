@@ -1,0 +1,11 @@
+# Create self signed certicicate
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+
+# Create a strong Diffie-Hellman group for negotiating Perfect Forward Secrecy.
+sudo openssl dhparam -out /etc/nginx/dhparam.pem 4096
+
+# How To Create a Self-Signed SSL Certificate for Nginx in Ubuntu 18.04
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04
+
+# How To Secure Nginx with Let's Encrypt on Ubuntu 18.04
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04

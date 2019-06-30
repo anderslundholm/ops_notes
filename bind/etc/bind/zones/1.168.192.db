@@ -1,0 +1,17 @@
+$ORIGIN 1.168.192.in-addr.arpa.
+$TTL	604800
+@	IN	SOA	ns01.example.com. admin.example.com. (
+		   19050403		; Serial
+			 604800		; Refresh
+			  86400		; Retry
+			2419200		; Expire
+			 604800 )	; Negative Cache TTL
+; name servers - NS records
+        IN  NS  ns01.example.com.
+        IN  NS  ns02.example.com.
+
+; PTR records
+121     IN  PTR ns01.example.com.      ;192.168.1.121
+122     IN  PTR ns02.example.com.      ;192.168.1.121
+135     IN  PTR es01.example.com.      ;192.168.1.135
+136     IN  PTR es02.example.com.      ;192.168.1.136
