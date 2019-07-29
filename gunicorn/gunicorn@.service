@@ -1,0 +1,23 @@
+[Unit]
+Description=%i daemon
+Requires=gunicorn@%i.socket
+After=network.target
+
+[Service]
+PIDFile=/run/%i/pid
+User=%i
+WorkingDirectory=/opt/%i
+PrivateTmp=true
+#PrivateUsers=true
+# Takes a list of directory names. If set, one or more directories by the specified names will be created below /run
+RuntimeDirectory=%i
+RuntimeDirectoryMode=0755
+Restart=on-failure
+
+ExecStart=/usr/bin/env /opt/%i/venv/bin/gunicorn --workers=3 wsgi:app
+
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

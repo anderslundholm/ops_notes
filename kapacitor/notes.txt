@@ -1,0 +1,7 @@
+### Install
+wget https://dl.influxdata.com/kapacitor/releases/kapacitor_1.5.3_amd64.deb
+sudo dpkg -i kapacitor_1.5.3_amd64.deb
+
+### iptables
+sudo iptables -A INPUT -p tcp -s 192.168.1.131 -m tcp --dport 9092 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo sh -c 'iptables-save > /etc/iptables/rules.v4' 

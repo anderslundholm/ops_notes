@@ -1,0 +1,9 @@
+# /etc/systemd/system/gunicorn@.socket
+[Unit]
+Description=%i socket
+
+[Socket]
+ListenStream=/run/%i/socket
+
+[Install]
+WantedBy=sockets.target
