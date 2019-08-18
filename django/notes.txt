@@ -1,0 +1,21 @@
+# Start project
+docker-compose run web django-admin startproject composeexample .
+sudo chown -R $USER:$USER .
+
+
+# Settings
+## Database settings
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
+    }
+}
+
+
+# Docker-compose tutorial
+https://docs.docker.com/compose/django/
+
