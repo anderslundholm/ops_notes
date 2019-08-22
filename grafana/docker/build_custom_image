@@ -1,0 +1,4 @@
+docker build -t grafana:latest-with-plugins \
+  --build-arg "GRAFANA_VERSION=latest" \
+  --build-arg "GF_SECURITY_ADMIN_PASSWORD=admin" \
+  --build-arg "GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource" .
